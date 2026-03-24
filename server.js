@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
-const multer  = require('multer');
+const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
@@ -20,10 +20,10 @@ if (!fs.existsSync(uploadDir)) {
 
 // Set up multer for handling file uploads
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function (req, file, cb) {
         cb(null, 'uploads/');
     },
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname));
     }
 });
@@ -90,7 +90,7 @@ function initializeDatabase() {
         stmtOncologists.run("Dr. Venkataramanan M", "Pediatric Oncology", "+91 98765 43216", "Apollo Hospitals");
         stmtOncologists.run("Dr. Kanthilal M", "Gynaecological Oncology", "+91 98765 43217", "MIOT International");
         stmtOncologists.finalize();
-        
+
         console.log('Database seeded with 4 Hospitals and 8 Oncologists in Chennai.');
     });
 }
@@ -98,15 +98,15 @@ function initializeDatabase() {
 // API Routes
 
 // 1. Symptom Checker Analysis
-app.post('/api/symptoms', (req, res) => {
+app.post('/api/symptom-check', (req, res) => {
     const { symptoms } = req.body;
     if (!symptoms) return res.status(400).json({ error: "No symptoms provided" });
-    
+
     // Mock AI Analysis based on symptoms
     const lowerTokens = symptoms.toLowerCase();
     let riskLevel = "Low";
     let message = "Your symptoms do not immediately suggest high risk, but always consult a doctor if they persist.";
-    
+
     if (lowerTokens.includes("lump") || lowerTokens.includes("blood") || lowerTokens.includes("weight loss") || lowerTokens.includes("cough")) {
         riskLevel = "Moderate to High";
         message = "These symptoms can be associated with serious conditions including cancer. Please schedule an appointment with an oncologist for thorough screening.";
@@ -132,7 +132,7 @@ app.post('/api/upload', upload.single('report'), (req, res) => {
 // 3. Risk Calculator
 app.post('/api/risk', (req, res) => {
     const { age, smoking, familyHistory, alcohol, diet } = req.body;
-    
+
     let riskPercentage = 5; // Base risk
     if (age > 50) riskPercentage += 15;
     if (smoking === 'yes') riskPercentage += 30;
@@ -163,7 +163,7 @@ app.get('/api/oncologists', (req, res) => {
     const { specialty } = req.query;
     let query = "SELECT * FROM oncologists";
     let params = [];
-    
+
     if (specialty && specialty !== 'All') {
         query += " WHERE specialty = ?";
         params.push(specialty);
@@ -178,13 +178,13 @@ app.get('/api/oncologists', (req, res) => {
 // 6. Book Appointment
 app.post('/api/appointment', (req, res) => {
     const { patientName, patientPhone, oncologistId, date, time } = req.body;
-    
+
     if (!patientName || !oncologistId || !date || !time) {
         return res.status(400).json({ error: "Missing required fields" });
     }
 
     const stmt = db.prepare("INSERT INTO appointments (patientName, patientPhone, oncologistId, date, time, status) VALUES (?, ?, ?, ?, ?, ?)");
-    stmt.run(patientName, patientPhone, oncologistId, date, time, 'Confirmed', function(err) {
+    stmt.run(patientName, patientPhone, oncologistId, date, time, 'Confirmed', function (err) {
         if (err) return res.status(500).json({ error: err.message });
         res.json({
             message: "Appointment confirmed successfully!",
