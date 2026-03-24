@@ -1,25 +1,27 @@
 const API_BASE = "http://localhost:3000/api";
 
 // ================= SYMPTOM CHECK =================
-async function analyzeSymptoms() {
+function analyzeSymptoms() {
     const input = document.getElementById("symptom-input").value;
 
-    try {
-        const res = await fetch(`${API_BASE}/symptom-check`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ symptoms: input })
-        });
-
-        const data = await res.json();
-
+    fetch("http://localhost:3000/api/symptom-check", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ symptoms: input })
+    })
+    .then(res => res.json())
+    .then(data => {
         document.getElementById("symptom-result").innerHTML =
             `<p>${data.analysis}</p><strong>${data.riskLevel}</strong>`;
-
-    } catch (err) {
+            console.log(data.riskLevel);
+            
+    })
+    .catch(err => {
         console.error(err);
         alert("Backend not connected");
-    }
+    });
 }
 
 // ================= HOSPITALS =================
@@ -102,7 +104,7 @@ async function uploadReport() {
         console.error(err);
     }
 }
-
+document.getElementById("btn-analyze-symptoms").addEventListener("click", analyzeSymptoms);
 // ================= LOAD INIT =================
 window.onload = () => {
     loadHospitals();
