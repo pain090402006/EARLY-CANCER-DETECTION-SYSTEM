@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proacta | Early Cancer Detection System</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Sticky Navigation -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="#" class="brand"><i class="fa-solid fa-heart-pulse"></i> Proacta</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#symptoms">Symptoms</a></li>
+                <li><a href="#upload">Report AI</a></li>
+                <li><a href="#risk">Risk Calculator</a></li>
+                <li><a href="#body">Digital Twin</a></li>
+                <li><a href="#prevention">Prevention</a></li>
+                <li><a href="#emergency" class="btn-emergency-nav">Emergency</a></li>
+                <li><a href="#contact" class="btn-primary">Book Dr.</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 1. Home Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>Early Detection Saves Lives</h1>
+                <p>Welcome to Proacta, an intelligent early cancer detection and awareness system. Explore our tools to check symptoms, analyze reports using AI, calculate your risk, and connect with Chennai's top oncologists.</p>
+                <div class="hero-buttons">
+                    <a href="#symptoms" class="btn-primary">Check Symptoms</a>
+                    <a href="#risk" class="btn-secondary">Calculate Risk</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- A simple SVG or placeholder for hero -->
+                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800" alt="Medical professional" class="rounded-image shadow">
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Symptom Checker Section -->
+    <section id="symptoms" class="section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2>Symptom Checker</h2>
+                <p>Describe your symptoms via text or voice to get an immediate AI assessment.</p>
+            </div>
+            <div class="card symptom-card">
+                <div class="input-group">
+                    <textarea id="symptom-input" placeholder="Type your symptoms here... (e.g. chronic cough, unexplained weight loss)" rows="4"></textarea>
+                    <button id="btn-voice" class="btn-icon" title="Use Voice Input"><i class="fa-solid fa-microphone"></i></button>
+                </div>
+                <button id="btn-analyze-symptoms" class="btn-primary mt-3 w-100">Analyze Symptoms <i class="fa-solid fa-arrow-right"></i></button>
+                <div id="symptom-result" class="result-box hidden mt-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Upload Report Section -->
+    <section id="upload" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>AI Report Analysis</h2>
+                <p>Upload your medical reports (PDF, JPG, PNG) for a preliminary AI assessment.</p>
+            </div>
+            <div class="card upload-card text-center">
+                <form id="upload-form">
+                    <div class="upload-area" id="upload-area">
+                        <i class="fa-solid fa-cloud-arrow-up fa-3x mb-2 text-primary"></i>
+                        <p>Drag & drop your file here or</p>
+                        <input type="file" id="report-file" accept=".pdf,.jpg,.png" required class="hidden-input">
+                        <label for="report-file" class="btn-secondary">Browse File</label>
+                    </div>
+                    <div id="file-name" class="mt-2 text-muted"></div>
+                    <button type="submit" class="btn-primary mt-3 w-100 p-2">Analyze Report <i class="fa-solid fa-robot"></i></button>
+                </form>
+                <div id="upload-result" class="result-box hidden mt-3 text-left"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Risk Calculator Section -->
+    <section id="risk" class="section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2>Cancer Risk Calculator</h2>
+                <p>Answer a few simple questions to estimate your lifestyle risk indicator.</p>
+            </div>
+            <div class="card risk-card">
+                <form id="risk-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Age</label>
+                            <input type="number" id="risk-age" required min="1" max="120" placeholder="e.g. 45">
+                        </div>
+                        <div class="form-group">
+                            <label>Do you smoke?</label>
+                            <select id="risk-smoking" required>
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Family history of cancer?</label>
+                            <select id="risk-history" required>
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Alcohol consumption?</label>
+                            <select id="risk-alcohol" required>
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Diet Quality</label>
+                            <select id="risk-diet" required>
+                                <option value="healthy">Healthy/Balanced</option>
+                                <option value="poor">Poor/High Processed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary w-100">Calculate Risk %</button>
+                </form>
+                <div id="risk-result" class="result-box hidden mt-3 text-center">
+                    <h3 id="risk-percentage" class="text-primary text-xl"></h3>
+                    <p id="risk-level"></p>
+                    <p id="risk-recommendation" class="text-sm mt-1"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Digital Body Section -->
+    <section id="body" class="section">
+        <div class="container text-center">
+            <div class="section-header">
+                <h2>Digital Twin Human Body</h2>
+                <p>Click on the organs below to view common symptoms and early detection methods.</p>
+            </div>
+            <div class="digital-body-container card">
+                <!-- Using a simple structured grid to simulate body parts since literal complex SVG might be too large, but we'll use an interactive SVG -->
+                <div class="body-svg-wrapper">
+                    <!-- Basic Human Body SVG Layout Outline -->
+                    <svg viewBox="0 0 200 400" width="200" height="400" id="human-body" class="interactive-svg">
+                        <g id="organ-brain" class="organ" data-name="Brain Cancer" data-info="Symptoms: Severe headaches, nausea, vision problems. Screening: MRI/CT scans.">
+                            <circle cx="100" cy="40" r="20" fill="#E8F0FE" stroke="#1A73E8" stroke-width="2"/>
+                        </g>
+                        <g id="organ-lungs" class="organ" data-name="Lung Cancer" data-info="Symptoms: Persistent cough, chest pain, coughing up blood. Screening: Low-dose CT.">
+                            <path d="M 80 90 Q 70 110 80 130 Q 90 110 80 90" fill="#E8F0FE" stroke="#1A73E8" stroke-width="2"/>
+                            <path d="M 120 90 Q 130 110 120 130 Q 110 110 120 90" fill="#E8F0FE" stroke="#1A73E8" stroke-width="2"/>
+                        </g>
+                        <g id="organ-breast" class="organ" data-name="Breast Cancer" data-info="Symptoms: Lumps, changes in shape, skin dimpling. Screening: Mammogram (Annual >40y).">
+                            <circle cx="75" cy="120" r="10" fill="#E8F0FE" stroke="#1A73E8" stroke-width="2"/>
+                            <circle cx="125" cy="120" r="10" fill="#E8F0FE" stroke="#1A73E8" stroke-width="2"/>
+                        </g>
+                        <g id="organ-stomach" class="organ" data-name="Stomach/Colon Cancer" data-info="Symptoms: Unexplained weight loss, changes in bowel habits. Screening: Endoscopy/Colonoscopy.">
+                            <ellipse cx="100" cy="160" rx="25" ry="15" fill="#E8F0FE" stroke="#1A73E8" stroke-width="2"/>
+                        </g>
+                        <g id="organ-prostate" class="organ" data-name="Prostate/Ovarian Cancer" data-info="Symptoms: Frequent urination, pelvic pain. Screening: PSA test (Men), Ultrasound/CA-125 (Women).">
+                            <circle cx="100" cy="200" r="15" fill="#E8F0FE" stroke="#1A73E8" stroke-width="2"/>
+                        </g>
+                    </svg>
+                </div>
+                <div id="body-info" class="mt-3 text-left hidden">
+                    <h4 id="organ-title" class="text-primary mb-1"></h4>
+                    <p id="organ-details"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Prevention Section -->
+    <section id="prevention" class="section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2>Prevention Tips</h2>
+                <p>Simple lifestyle changes that significantly lower your risk of cancer.</p>
+            </div>
+            <div class="grid-3">
+                <div class="card highlight-card">
+                    <i class="fa-solid fa-apple-whole fa-2x text-primary mb-2"></i>
+                    <h3>Healthy Diet</h3>
+                    <p>Eat plenty of fruits, vegetables, and whole grains. Limit processed meats.</p>
+                </div>
+                <div class="card highlight-card">
+                    <i class="fa-solid fa-person-running fa-2x text-primary mb-2"></i>
+                    <h3>Stay Active</h3>
+                    <p>Maintain a healthy weight and get at least 150 mins of moderate activity per week.</p>
+                </div>
+                <div class="card highlight-card">
+                    <i class="fa-solid fa-ban-smoking fa-2x text-primary mb-2"></i>
+                    <h3>Avoid Tobacco</h3>
+                    <p>Using any type of tobacco puts you on a collision course with cancer.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Emergency Contact Section -->
+    <section id="emergency" class="section emergency-section">
+        <div class="container">
+            <div class="section-header text-white">
+                <h2>Emergency & Hospitals</h2>
+                <p>Immediate access to local rescue services and verified hospitals in Chennai.</p>
+            </div>
+            <div class="emergency-actions mb-4 text-center">
+                <a href="tel:108" class="btn-emergency pulse"><i class="fa-solid fa-truck-medical"></i> Call 108</a>
+                <a href="tel:102" class="btn-emergency pulse"><i class="fa-solid fa-phone"></i> Call 102</a>
+                <button onclick="window.open('https://www.google.com/maps/search/hospitals+near+me', '_blank')" class="btn-white"><i class="fa-solid fa-location-dot"></i> Hospital Locator</button>
+            </div>
+            
+            <h3 class="text-white text-center mb-3">Top Verified Hospitals in Chennai</h3>
+            <div class="grid-2" id="hospitals-list">
+                <!-- Data populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Contact Section (Oncologists) -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Book a Specialized Oncologist</h2>
+                <p>Consult with verified cancer specialists in Chennai.</p>
+            </div>
+            
+            <div class="filter-bar mb-3 text-center">
+                <label for="specialty-filter">Filter by Specialty: </label>
+                <select id="specialty-filter" class="form-control" style="width: auto; display: inline-block;">
+                    <option value="All">All Specialties</option>
+                    <option value="Medical Oncology">Medical Oncology</option>
+                    <option value="Surgical Oncology">Surgical Oncology</option>
+                    <option value="Radiation Oncology">Radiation Oncology</option>
+                    <option value="Pediatric Oncology">Pediatric Oncology</option>
+                    <option value="Gynaecological Oncology">Gynaecological Oncology</option>
+                </select>
+            </div>
+
+            <div class="grid-4" id="oncologists-list">
+                <!-- Data populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Modal -->
+    <div id="booking-modal" class="modal hidden">
+        <div class="modal-content card">
+            <span class="close-modal">&times;</span>
+            <h3 class="mb-2">Book Appointment</h3>
+            <p id="booking-doc-name" class="text-primary font-weight-bold mb-3"></p>
+            
+            <form id="booking-form">
+                <input type="hidden" id="book-doc-id">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" id="book-name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Your Phone</label>
+                    <input type="tel" id="book-phone" required placeholder="+91 9876543210">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="book-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Time</label>
+                        <input type="time" id="book-time" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary w-100">Confirm Booking</button>
+            </form>
+            <div id="booking-success" class="hidden text-center mt-3">
+                <i class="fa-solid fa-circle-check fa-4x text-success mb-2"></i>
+                <h4 class="text-success">Booking Confirmed!</h4>
+                <p>We have sent the confirmation to your phone.</p>
+                <button id="btn-close-success" class="btn-secondary mt-2 w-100">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white text-center p-3">
+        <p>&copy; 2026 Proacta | Early Cancer Detection System. For educational/screening purposes only.</p>
+    </footer>
+
+    <!-- Socket or Axios if needed, we'll use Fetch API -->
+    <script src="script.js"></script>
+</body>
+</html>
